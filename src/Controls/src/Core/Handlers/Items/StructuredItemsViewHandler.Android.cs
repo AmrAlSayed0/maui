@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Microsoft.Maui.Handlers;
+using AndroidX.RecyclerView.Widget;
 
 namespace Microsoft.Maui.Controls.Handlers.Items
 {
 	public partial class StructuredItemsViewHandler<TItemsView> : ItemsViewHandler<TItemsView> where TItemsView : StructuredItemsView
 	{
-		
-		protected override Android.Views.View CreateNativeView()
+
+		protected override StructuredItemsViewAdapter<TItemsView, IItemsViewSource> CreateAdapter()
 		{
-			throw new NotImplementedException();
+			return new StructuredItemsViewAdapter<TItemsView, IItemsViewSource>(VirtualView);
 		}
 
 		public static void MapHeaderTemplate(StructuredItemsViewHandler<TItemsView> handler, StructuredItemsView itemsView)
@@ -31,6 +31,11 @@ namespace Microsoft.Maui.Controls.Handlers.Items
 		public static void MapItemSizingStrategy(StructuredItemsViewHandler<TItemsView> handler, StructuredItemsView itemsView)
 		{
 
+		}
+
+		protected override IItemsLayout GetItemsLayout()
+		{
+			return VirtualView.ItemsLayout;
 		}
 	}
 }
